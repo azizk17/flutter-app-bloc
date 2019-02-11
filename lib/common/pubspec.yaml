@@ -1,0 +1,16 @@
+name: common
+description: shared code
+environment:
+  sdk: '>=2.0.0 <3.0.0'
+dependencies:
+  rxdart: "^0.18.1"
+  intl: ^0.15.7
+  built_value: ^6.2.0
+  meta: ^1.1.6
+dev_dependencies:
+  test: ^1.2.0
+  intl_translation: ^0.17.2
+  build_runner:
+  built_value_generator:
+transformers:
+  - intl_translation:
