@@ -1,0 +1,79 @@
+{
+  "@@last_modified": "2019-02-12T07:49:07.204068",
+  "appTitle": "Hello world App",
+  "@appTitle": {
+    "description": "The application title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "hello": "Hello",
+  "@hello": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "btnSend": "Send",
+  "@btnSend": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "btnCancel": "Cancel",
+  "@btnCancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "btnSave": "Save",
+  "@btnSave": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "btnRegister": "Register",
+  "@btnRegister": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "btnLogin": "Login",
+  "@btnLogin": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "btnAgree": "Agree",
+  "@btnAgree": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "termsMsg": "Read our Privacy terms. Tap \"Agree\" to accept the terms of services",
+  "@termsMsg": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "enterYourPhoneMsg": "Enter your phone number",
+  "@enterYourPhoneMsg": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidPhoneNumber": "phone number is incorrect",
+  "@invalidPhoneNumber": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "enterVerifiCodeMsg": "Enter varification code",
+  "@enterVerifiCodeMsg": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidVerifiCodeMsg": "varification code is incorrect",
+  "@invalidVerifiCodeMsg": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "waitResendMsg": "Wait 3 mintes to send agine",
+  "@waitResendMsg": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "phoneFormatErr": "Please enter a correct phone number",
+  "@phoneFormatErr": {
+    "type": "text",
+    "placeholders": {}
+  }
+}

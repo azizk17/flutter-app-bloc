@@ -4,18 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:country_pickers/country_pickers.dart';
 
 class PickCountry extends StatefulWidget {
+  bool isLoading = false;
+  PickCountry({
+    this.isLoading,
+  });
   @override
   _PickCountryState createState() => _PickCountryState();
 }
 
 class _PickCountryState extends State<PickCountry> {
-  Country _selectedDialogCountry = CountryPickerUtils.getCountryByIsoCode('tr');
+  Country _selectedDialogCountry = CountryPickerUtils.getCountryByIsoCode('sa');
   Country _selectedCupertinoCountry =
-      CountryPickerUtils.getCountryByIsoCode('tr');
+      CountryPickerUtils.getCountryByIsoCode('sa');
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: _android(context),
+      child: Directionality(
+          textDirection: TextDirection.ltr, child: _android(context)),
     );
   }
 
@@ -40,7 +45,7 @@ class _PickCountryState extends State<PickCountry> {
               child: FlatButton(
                 // color: Colors.black12,
                 padding: EdgeInsets.all(0),
-                onPressed: _openCountryPickerDialog,
+                onPressed: widget.isLoading ? null : _openCountryPickerDialog,
                 child: _buildDialogListItem(_selectedDialogCountry),
               ),
             ),
@@ -54,6 +59,7 @@ class _PickCountryState extends State<PickCountry> {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   border: InputBorder.none,
+                  enabled: !widget.isLoading,
                 ),
               ),
             )
@@ -63,38 +69,38 @@ class _PickCountryState extends State<PickCountry> {
     );
   }
 
-  @override
-  Widget ss(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.all(8.0),
-      children: <Widget>[
-        Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('CountryPickerDialog'),
-              ListTile(
-                onTap: _openCountryPickerDialog,
-                title: _buildDialogItem(_selectedDialogCountry),
-              ),
-            ],
-          ),
-        ),
-        Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text('CountryPickerCupertino'),
-              ListTile(
-                title: _buildCupertinoItem(_selectedCupertinoCountry),
-                onTap: _openCupertinoCountryPicker,
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+  // @override
+  // Widget ss(BuildContext context) {
+  //   return ListView(
+  //     padding: EdgeInsets.all(8.0),
+  //     children: <Widget>[
+  //       Card(
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: <Widget>[
+  //             Text('CountryPickerDialog'),
+  //             ListTile(
+  //               onTap: _openCountryPickerDialog,
+  //               title: _buildDialogItem(_selectedDialogCountry),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //       Card(
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: <Widget>[
+  //             Text('CountryPickerCupertino'),
+  //             ListTile(
+  //               title: _buildCupertinoItem(_selectedCupertinoCountry),
+  //               onTap: _openCupertinoCountryPicker,
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildDialogListItem(Country country) => ClipRect(
         child: Row(
@@ -115,17 +121,21 @@ class _PickCountryState extends State<PickCountry> {
 
   Widget _buildDialogItem(Country country) => ClipRect(
         child: Row(
+          textDirection: TextDirection.ltr,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             // CountryPickerUtils.getDefaultFlagImage(country),
             // SizedBox(width: 3.0),
             Text(
               "+${country.phoneCode}",
+              textDirection: TextDirection.ltr,
               style: TextStyle(
-                  fontSize: 15, color: Theme.of(context).primaryColor),
+                fontSize: 15,
+                color: Theme.of(context).primaryColor,
+              ),
             ),
             SizedBox(width: 8.0),
-            Flexible(child: Text(country.name))
+            Flexible(child: Text(country.isoCode))
           ],
         ),
       );
@@ -138,7 +148,7 @@ class _PickCountryState extends State<PickCountry> {
                 titlePadding: EdgeInsets.all(8.0),
                 searchCursorColor: Colors.pinkAccent,
                 searchInputDecoration: InputDecoration(hintText: 'Search...'),
-                isSearchable: true,
+                isSearchable: false,
                 title: Text('Select your phone code'),
                 onValuePicked: (Country country) =>
                     setState(() => _selectedDialogCountry = country),
@@ -161,7 +171,7 @@ class _PickCountryState extends State<PickCountry> {
           SizedBox(width: 8.0),
           Text("+${country.phoneCode}"),
           SizedBox(width: 8.0),
-          Flexible(child: Text(country.name))
+          Flexible(child: Text(country.isoCode))
         ],
       );
 }

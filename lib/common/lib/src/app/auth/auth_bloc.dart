@@ -11,6 +11,7 @@ class AuthBloc {
 
   Observable<String> get phone => _phoneController.stream;
   Observable<bool> get isLoading => _isLoading.stream;
+  Function(bool) get loading => _isLoading.sink.add;
   Function(String) get changePhone => _phoneController.sink.add;
   Function() get submit => _submit;
 
@@ -18,10 +19,12 @@ class AuthBloc {
   _submit() async {
     print("bloc");
     _isLoading.sink.add(true);
-    var getUser = await this
-        ._repo
-        .signInWithPhone(_phoneController.value)
-        .catchError((e) => print("has error BB ${e.toString()}"));
+    // var getUser = await this
+    //     ._repo
+    //     .signInWithPhone(_phoneController.value)
+    //     .catchError((e) => print("has error BB ${e.toString()}"));
+    // _isLoading.sink.add(false);
+    await Future.delayed(const Duration(seconds: 3));
     _isLoading.sink.add(false);
 
     final _p = _phoneController.value;

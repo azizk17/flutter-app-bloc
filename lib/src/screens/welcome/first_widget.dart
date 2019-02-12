@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../locale.dart';
 
 class FirstWidget extends StatelessWidget {
   @override
@@ -7,7 +8,7 @@ class FirstWidget extends StatelessWidget {
       color: Theme.of(context).accentColor,
       child: Center(
         child: Text(
-          "يا مرحبا ترحيبه كلها هيل",
+          AppLocalizations.of(context).hello,
           textScaleFactor: 2.2,
           style: TextStyle(color: Theme.of(context).canvasColor),
         ),

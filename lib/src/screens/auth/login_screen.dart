@@ -5,6 +5,8 @@ import 'package:common/common.dart' show User;
 import './phone_verifivation.dart';
 
 import './country_picker.dart';
+import '../../widgets/widgets.dart' show PrimaryBtn;
+import '../../locale.dart';
 // class LoginScreen extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
@@ -27,13 +29,18 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    super.initState();
-    // authBloc = AuthProvider.of(context);
     _listenToStreams();
+
+    super.initState();
+
+    // Future.delayed(const Duration(seconds: 2));
+    // this.isLoading = true;
+    // print("is loading" + this.isLoading.toString());
+    // authBloc = AuthProvider.of(context);
   }
 
   _listenToStreams() {
-    _su = authBloc.isLoading.listen(
+    authBloc.isLoading.listen(
       (data) {
         setState(() {
           this.isLoading = data;
@@ -79,7 +86,9 @@ class _LoginScreenState extends State<LoginScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         // _phoneInput(context),
-        PickCountry(),
+        PickCountry(
+          isLoading: this.isLoading,
+        ),
         _submitBtn(context),
         FlatButton(
           child: Text("show dialog"),
@@ -113,15 +122,19 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _submitBtn(BuildContext context) {
+    // return PrimaryBtn(
+    //   child: Text("hello"),
+    //   isLoading: this.isLoading,
+    //   onPressed: () => print("dsdsd"),
+    // );
     return FlatButton(
       splashColor: Colors.blue,
-      color: Colors.red,
-      textColor: Colors.teal,
-      child: false
+      color: Theme.of(context).buttonColor,
+      child: this.isLoading
           ? CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
             )
-          : Text("Submit"),
+          : Text(AppLocalizations.of(context).btnSend),
       onPressed: authBloc.submit,
     );
   }
@@ -130,12 +143,13 @@ class _LoginScreenState extends State<LoginScreen> {
   // }
 
   void _showDialog() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: PhoneVerificationScreen(),
-          );
-        });
+    authBloc.submit();
+    // showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return AlertDialog(
+    //         content: PhoneVerificationScreen(),
+    //       );
+    //     });
   }
 }

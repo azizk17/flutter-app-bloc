@@ -1,0 +1,79 @@
+{
+  "@@last_modified": "2019-02-12T07:49:07.204068",
+  "appTitle": "اسمي",
+  "@appTitle": {
+    "description": "The application title",
+    "type": "text",
+    "placeholders": {}
+  },
+  "hello": "يا مرحبا ترحيبه كلها هيل",
+  "@hello": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "btnSend": "ارسال",
+  "@btnSend": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "btnCancel": "الغاء",
+  "@btnCancel": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "btnSave": "حفظ",
+  "@btnSave": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "btnRegister": "انضم الينا",
+  "@btnRegister": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "btnLogin": "تسجيل",
+  "@btnLogin": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "btnAgree": "موافق",
+  "@btnAgree": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "termsMsg": "بالضغط على موافق تكون مقر بالانظمه والشروط",
+  "@termsMsg": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "enterYourPhoneMsg": "ادخل رقم الجوال",
+  "@enterYourPhoneMsg": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidPhoneNumber": "رقم جوال غير صحيح",
+  "@invalidPhoneNumber": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "enterVerifiCodeMsg": "ادخل رمز التاكيد",
+  "@enterVerifiCodeMsg": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "invalidVerifiCodeMsg": "الرمز غير صحيح",
+  "@invalidVerifiCodeMsg": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "waitResendMsg": "انتظر قليلا قبل اعاده الارسال",
+  "@waitResendMsg": {
+    "type": "text",
+    "placeholders": {}
+  },
+  "phoneFormatErr": "صيغه رقم الجوال غسر صحيحه",
+  "@phoneFormatErr": {
+    "type": "text",
+    "placeholders": {}
+  }
+}
