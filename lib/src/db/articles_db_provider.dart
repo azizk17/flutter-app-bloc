@@ -1,9 +1,9 @@
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
-import '../db.dart';
-import 'package:common/common.dart' show Article, ArticlesService;
+import '../db_client.dart';
+import 'package:common/common.dart' show Article, ArticlesDb;
 
-class ArticlesDbProvider {
+class ArticlesDbProvider implements ArticlesDb {
   // Database _db = dbClient.db();
   String _dbName = 'articles';
   ArticlesDbProvider() {}
@@ -60,7 +60,8 @@ class ArticlesDbProvider {
     return null;
   }
 
-  Future<int> create(Article item) async {
+  @override
+  Future<void> create(Article item) async {
     var db = await DatabaseClient().db;
     return db.insert(
       "$_dbName",

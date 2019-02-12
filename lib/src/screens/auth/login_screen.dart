@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../app/providers/auth_provider.dart';
+import '../../providers/auth_provider.dart';
 import 'dart:async';
-import '../../app/user/user.dart' show User;
+import 'package:common/common.dart' show User;
 import './phone_verifivation.dart';
 
 import './country_picker.dart';

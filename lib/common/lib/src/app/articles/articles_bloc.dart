@@ -13,7 +13,7 @@ class ArticlesBloc {
   Function(String) get getItem => _repo.getItem;
   Function(Article) get create => _repo.create;
   Function(Article) get update => _repo.update;
-  Function(String) get delete => _repo.delete;
+  Function(Article) get delete => _repo.delete;
   Function(bool) get showError => _showErrors.sink.add;
   // editing
   Stream<Article> get changedItem => _editingForm.stream

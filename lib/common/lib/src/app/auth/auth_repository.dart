@@ -1,9 +1,9 @@
-import './auth_db_provider.dart';
-import './auth_service.dart';
+import './auth.dart' show AuthService, AuthDb;
+
 import 'package:meta/meta.dart';
 
 class AuthRepository {
-  AuthDbProvider db;
+  AuthDb db;
   AuthService service;
 
   AuthRepository({@required this.service, @required this.db});
@@ -15,10 +15,10 @@ class AuthRepository {
   Future<void> signInWithPhone(String phone) async {
     print("repo");
 
-    await service
-        .signInWithPhone(phone)
-        .then((d) => print("data is $d"))
-        .catchError((e) => print("e is ${e.toString()}"));
+    // await service
+    //     .signInWithPhone(phone)
+    //     .then((d) => print("data is $d"))
+    //     .catchError((e) => print("e is ${e.toString()}"));
   }
 
   register() {}

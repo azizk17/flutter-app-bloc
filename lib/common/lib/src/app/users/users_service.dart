@@ -1,3 +1,3 @@
 import '../../abstract/abstract.dart' show Service;
 
-abstract class AuthService {}
+abstract class UsersService {}

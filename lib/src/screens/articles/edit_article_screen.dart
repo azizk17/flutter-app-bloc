@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../app/articles/articles.dart';
+import 'package:common/common.dart' show Article;
 
 class EditArticleScreen extends StatelessWidget {
   EditArticleScreen({item: Article});

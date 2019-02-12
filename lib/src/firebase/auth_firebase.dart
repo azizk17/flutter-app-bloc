@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:common/common.dart' show AuthService;
+import 'package:common/common.dart' show AuthService, User;
 
-class AuthFirebase extends AuthService {
+class AuthFirebase<User> extends AuthService {
   String phoneNumber;
   String smsCode;
   String verificationId;

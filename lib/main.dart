@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import './src/app/providers/SyncErrorProvider.dart';
-import './src/app/db.dart';
+import './src/db_client.dart';
 import './src/routes.dart';
 import './src/screens/welcome/welcome_screen.dart';
 import './themes/jeddTheme.dart' show jeddTheme;
@@ -19,17 +18,14 @@ void _initAppTools() async {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-  static Future db = DatabaseClient().create();
   @override
   Widget build(BuildContext context) {
-    return SyncErrorProvider(
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: jeddTheme,
-        home: WelcomeScreen(),
-        onGenerateRoute: routes,
-        debugShowCheckedModeBanner: true,
-      ),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: jeddTheme,
+      home: WelcomeScreen(),
+      onGenerateRoute: routes,
+      debugShowCheckedModeBanner: true,
     );
   }
 }

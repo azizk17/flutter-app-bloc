@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../providers/providers.dart' show AuthProvider;
 import '../keys.dart';
-import '../../app/providers/auth_provider.dart';
 import './first_widget.dart';
 import './second_widget.dart';
 

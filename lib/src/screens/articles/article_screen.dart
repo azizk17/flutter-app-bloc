@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../app/articles/articles.dart' show ArticlesService;
 import './edit_article_screen.dart';
-import '../../app/providers/articles_provider.dart';
+import '../../providers/providers.dart' show ArticlesProvider;
 
 /**
  * *  A list of Articles

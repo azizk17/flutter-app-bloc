@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import '../auth/auth.dart'
-    show AuthBloc, AuthRepository, AuthService, AuthDbProvider;
+import 'package:common/common.dart' show AuthBloc, AuthRepository;
+import '../db/db.dart' show AuthDbProvider;
+import '../firebase/firebase.dart' show AuthFirebase;
 
 class AuthProvider extends InheritedWidget {
   final AuthBloc bloc;
   // ### Inject service and local db to repository
   static AuthRepository _repo =
-      AuthRepository(service: AuthService(), db: AuthDbProvider());
+      AuthRepository(service: AuthFirebase(), db: AuthDbProvider());
 
   AuthProvider({Key key, Widget child})
       : bloc = AuthBloc(_repo),
@@ -21,4 +22,4 @@ class AuthProvider extends InheritedWidget {
 }
 
 final authBloc =
-    AuthBloc(AuthRepository(service: AuthService(), db: AuthDbProvider()));
+    AuthBloc(AuthRepository(service: AuthFirebase(), db: AuthDbProvider()));

@@ -1,6 +1,5 @@
-import './articles.dart' show ArticlesService, ArticlesDbProvider, Article;
+import './articles.dart' show ArticlesService, ArticlesDb, Article;
 import 'package:rxdart/rxdart.dart';
-import '../../abstract/abstract.dart' show DB;
 
 class ArticlesRepository {
   /**
@@ -9,8 +8,9 @@ class ArticlesRepository {
    *  - Form validation
    *  - Ensure consistency between Service calls and local DB query
    */
+
   final ArticlesService _service;
-  final DB _db;
+  final ArticlesDb _db;
   Map<String, String> _errors;
 
   ArticlesRepository(this._service, this._db);
@@ -52,10 +52,10 @@ class ArticlesRepository {
 
   update(Article data) {
     if (data.title.isEmpty) {
-      return Observable.error(MyError(type: "ValidationError"));
+      // return Observable.error(MyError(type: "ValidationError"));
     }
     return this._service.update(data);
   }
 
-  delete(String id) {}
+  delete(Article data) {}
 }

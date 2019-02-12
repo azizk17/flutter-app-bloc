@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rxdart/rxdart.dart';
 import 'dart:async';
 
-class ArticlesFirebase {
+class ArticlesFirebase implements ArticlesService {
   /**
    *  
    *  * Handels server calls   
@@ -66,8 +66,8 @@ class ArticlesFirebase {
     return item;
   }
 
-  Future<void> delete(String id) {
-    Future<void> item = Firestore.instance.document(id).delete();
+  Future<void> delete(Article data) {
+    Future<void> item = Firestore.instance.document(data.id).delete();
     return item;
   }
 

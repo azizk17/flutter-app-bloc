@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import '../articles/articles.dart'
-    show ArticlesBloc, ArticlesRepository, ArticlesService, ArticlesDbProvider;
+import 'package:common/common.dart' show ArticlesBloc, ArticlesRepository;
+import '../db/db.dart' show ArticlesDbProvider;
+import '../firebase/firebase.dart' show ArticlesFirebase;
 
 class ArticlesProvider extends InheritedWidget {
   final ArticlesBloc bloc;
   // ### Inject service and local db to repository
   static ArticlesRepository _repo =
-      ArticlesRepository(ArticlesService(), ArticlesDbProvider());
+      ArticlesRepository(ArticlesFirebase(), ArticlesDbProvider());
 
   ArticlesProvider({Key key, Widget child})
       : bloc = ArticlesBloc(_repo),

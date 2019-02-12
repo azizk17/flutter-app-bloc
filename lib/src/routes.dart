@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import './screens/home_screen.dart';
 import './screens/articles/articles.dart';
 import './screens/welcome/welcome_screen.dart';
-import './app/providers/providers.dart' show ArticlesProvider;
+import './providers/providers.dart' show ArticlesProvider;
 import './screens/auth/login_screen.dart';
 import './screens/auth/phone_verifivation.dart';
 

@@ -1,7 +1,6 @@
 import './auth_repository.dart';
 import 'package:rxdart/rxdart.dart';
-import '../user/user.dart' show User;
-import 'dart:async';
+import '../users/users.dart' show User;
 
 class AuthBloc {
   AuthRepository _repo;

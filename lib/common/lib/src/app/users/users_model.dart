@@ -1,11 +1,11 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
-
+import '../../abstract/abstract.dart' show Model;
 import '../serializers/serializers.dart';
 
-part 'user_model.g.dart';
+part 'users_model.g.dart';
 
-abstract class User implements Built<User, UserBuilder> {
+abstract class User implements Built<User, UserBuilder>, Model {
   static Serializer<User> get serializer => _$userSerializer;
 
   @nullable

@@ -7,7 +7,7 @@ library serializers;
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 import '../articles/articles.dart' show Article;
-import '../user/user.dart' show User;
+import '../users/users.dart' show User;
 
 part 'serializers.g.dart';
 

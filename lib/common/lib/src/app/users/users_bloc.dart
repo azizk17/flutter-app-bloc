@@ -1,9 +1,8 @@
 import 'package:rxdart/rxdart.dart';
-import './user_model.dart';
-import './user_repository.dart';
+import './users.dart' show User, UsersRepository;
 
-class UserBloc {
-  UserRepository _repo;
+class UsersBloc {
+  UsersRepository _repo;
   final _createController = BehaviorSubject();
   final _fetchItemController = PublishSubject();
 
@@ -11,5 +10,5 @@ class UserBloc {
   Function(String) get getItemById => _fetchItemController.sink.add;
   Observable get user => _fetchItemController.stream;
 
-  UserBloc(this._repo);
+  UsersBloc(this._repo);
 }
