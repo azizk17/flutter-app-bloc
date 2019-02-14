@@ -1,25 +1,33 @@
 import 'package:flutter/material.dart';
-import '../../providers/providers.dart' show AuthProvider;
-import '../keys.dart';
 import './first_widget.dart';
 import './second_widget.dart';
+import 'package:flutter/cupertino.dart';
+import '../../utils.dart';
 
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return Utils.isIOS ? _screenIOS(context) : _screenAnd(context);
+  }
+
+  Widget _screenIOS(BuildContext context) {
+    return CupertinoPageScaffold(
+      child: _swiper(context),
+    );
+  }
+
+  Widget _screenAnd(BuildContext context) {
+    return _swiper(context);
+  }
+
+  Widget _swiper(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: Scaffold(
-        key: JeddKeys.scaffoldKey,
-        body: GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
-          child: TabBarView(
-            children: <Widget>[
-              FirstWidget(),
-              SecondWidget(),
-            ],
-          ),
-        ),
+      child: TabBarView(
+        children: <Widget>[
+          FirstWidget(),
+          SecondWidget(),
+        ],
       ),
     );
   }

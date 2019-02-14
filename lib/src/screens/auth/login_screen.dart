@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import '../../providers/auth_provider.dart';
 import 'dart:async';
-import 'package:common/common.dart' show User;
-import './phone_verifivation.dart';
-
 import './country_picker.dart';
-import '../../widgets/widgets.dart' show PrimaryBtn;
 import '../../locale.dart';
-// class LoginScreen extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       child: Text("sdfsd"),
-//     );
-//   }
-// }
+import '../../utils.dart';
+import 'package:flutter/services.dart';
+import 'package:flushbar/flushbar.dart';
+import 'package:intl/intl.dart';
 
 class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
@@ -23,44 +16,70 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool err = false;
   bool isLoading = false;
-  bool _showCredentialScreen = true;
-  StreamSubscription _su;
+  String phoneNumber;
+  String countryCode = '966';
+  String validationErr;
 
+  StreamSubscription loadingStream;
+  StreamSubscription _phoneStream;
+  StreamSubscription _countryCodeStream;
+
+  GlobalKey<ScaffoldState> _scaffKey = GlobalKey<ScaffoldState>();
   @override
   void initState() {
     // TODO: implement initState
-    _listenToStreams();
-
     super.initState();
-
-    // Future.delayed(const Duration(seconds: 2));
-    // this.isLoading = true;
-    // print("is loading" + this.isLoading.toString());
-    // authBloc = AuthProvider.of(context);
   }
 
-  _listenToStreams() {
-    authBloc.isLoading.listen(
-      (data) {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // loading indecator
+    Stream<bool> s = authBloc.isLoading;
+    loadingStream?.cancel();
+    loadingStream = s.listen((v) {
+      if (mounted) {
         setState(() {
-          this.isLoading = data;
+          this.isLoading = v;
         });
+      }
+    });
+    // phone
+    Stream<String> p = authBloc.phone;
+    _phoneStream?.cancel();
+    _phoneStream = p.listen(
+      (v) {
+        if (mounted) {
+          setState(() {
+            this.phoneNumber = v;
+          });
+        }
 
-        print("data:" + isLoading.toString());
+        print("phone number + " + v);
       },
-      onError: (e) => print(e),
+      onError: (e) => null,
     );
   }
 
-  _showError(String e) {
-    Scaffold.of(context).showSnackBar(SnackBar(
+  void _onSuccess(String phone) {
+    // push to verification page
+    Navigator.pushNamed(context, "/vervication");
+  }
+
+  void _onError(String e) {
+    // show snackbar with error info
+  }
+  void _showError(String e) {
+    _scaffKey.currentState.showSnackBar(SnackBar(
       content: Text(e),
+      backgroundColor: Theme.of(context).errorColor,
     ));
   }
 
-  _showCredential(bool val) {
+  void _selectedCode(String countryCode) {
     setState(() {
-      this._showCredentialScreen = val;
+      print("selected code " + countryCode);
+      this.countryCode = countryCode;
     });
   }
 
@@ -68,88 +87,156 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+    authBloc.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _showCredentialScreen
-            ? _credential(context)
-            : _verification(context),
+      key: _scaffKey,
+      body: Utils.isIOS ? _screenIOS(context) : _screenAnd(context),
+    );
+  }
+
+  Widget _screenIOS(BuildContext context) {
+    return CupertinoPageScaffold(
+      child: _body(context),
+    );
+  }
+
+  Widget _screenAnd(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.limeAccent,
+      resizeToAvoidBottomPadding: false,
+      body: _body(context),
+    );
+  }
+
+  Widget _body(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          _topMsg(context),
+          FlatButton(
+            color: Colors.redAccent,
+            child: Text("ph"),
+            onPressed: () => Navigator.pushNamed(context, '/phoneVerification'),
+          ),
+          // PhoneInput(
+          //   phoneNumber: this._updatePhoneNumberCallback,
+          //   contryCode: this._updateCountryCodeCallback,
+          //   validationErr: this.validationErr,
+          // ),
+          // country picker with phone input filed
+          _phoneBox(context),
+          _termsAgreement(context),
+          _submitBtn(context),
+        ],
       ),
     );
   }
 
-  Widget _credential(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        // _phoneInput(context),
-        PickCountry(
-          isLoading: this.isLoading,
-        ),
-        _submitBtn(context),
-        FlatButton(
-          child: Text("show dialog"),
-          onPressed: () {
-            Navigator.pushNamed(context, '/phoneVerification');
-          },
-        )
-      ],
+  Widget _topMsg(BuildContext context) {
+    return Text(
+      AppLocalizations.of(context).enterYourPhoneMsg,
+      style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 22),
     );
   }
 
-  Widget _verification(BuildContext context) {
-    return Dialog(
-      child: PhoneVerificationScreen(),
-    );
-  }
-
-  Widget _phoneInput(BuildContext context) {
-    return TextField(
+  Widget _termsAgreement(BuildContext context) {
+    return Text(
+      AppLocalizations.of(context).termsMsg,
       style: TextStyle(
-        fontSize: 40,
-        color: Colors.blue,
-      ),
-      onChanged: authBloc.changePhone,
-      keyboardType: TextInputType.phone,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        enabled: !this.isLoading,
+        fontFamily: "Roboto",
+        color: Colors.black45,
       ),
     );
   }
 
   Widget _submitBtn(BuildContext context) {
-    // return PrimaryBtn(
-    //   child: Text("hello"),
-    //   isLoading: this.isLoading,
-    //   onPressed: () => print("dsdsd"),
-    // );
-    return FlatButton(
-      splashColor: Colors.blue,
-      color: Theme.of(context).buttonColor,
-      child: this.isLoading
-          ? CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            )
-          : Text(AppLocalizations.of(context).btnSend),
-      onPressed: authBloc.submit,
+    Widget _btn;
+    final onPressed = authBloc.submit;
+    if (Utils.isIOS) {
+      _btn = CupertinoButton(
+        onPressed: onPressed,
+      );
+    } else {
+      _btn = FlatButton(
+        onPressed: onPressed,
+        color: Theme.of(context).primaryColor,
+        child: this.isLoading
+            ? CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              )
+            : Text(AppLocalizations.of(context).btnSend),
+      );
+    }
+
+    return SizedBox(
+      width: 140,
+      height: 45,
+      child: _btn,
     );
   }
-  // Widget _loadingWidget(BuildContext context) {
-  //   return
-  // }
 
-  void _showDialog() {
-    authBloc.submit();
-    // showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) {
-    //       return AlertDialog(
-    //         content: PhoneVerificationScreen(),
-    //       );
-    //     });
+  Widget _buildPhoneTextFiled(BuildContext context, snapshot) {
+    return Utils.isIOS
+        ? CupertinoTextField(
+            keyboardType: TextInputType.phone,
+            controller: TextEditingController(text: snapshot.data),
+            enabled: !this.isLoading,
+            style: Theme.of(context).textTheme.subhead.copyWith(fontSize: 40),
+            onChanged: authBloc.changePhone,
+            inputFormatters: [LengthLimitingTextInputFormatter(10)],
+          )
+        : TextField(
+            keyboardType: TextInputType.phone,
+            autofocus: true,
+            controller: TextEditingController(text: snapshot.data),
+            enabled: !this.isLoading,
+            decoration: InputDecoration(
+                border: InputBorder.none,
+                errorText: this.err ? this.validationErr : null),
+            style: Theme.of(context).textTheme.subhead.copyWith(fontSize: 40),
+            onChanged: authBloc.changePhone,
+            inputFormatters: [LengthLimitingTextInputFormatter(10)],
+          );
+  }
+
+  Widget _phoneBox(BuildContext context) {
+    return Opacity(
+      opacity: 0.5,
+      child: Container(
+        padding: EdgeInsets.only(left: 8, right: 8),
+        decoration: BoxDecoration(
+          color: Colors.black12,
+          borderRadius: BorderRadius.all(
+            Radius.circular(7),
+          ),
+        ),
+        child: Row(
+          children: <Widget>[
+            PickCountry(
+              enabled: !this.isLoading,
+              selectedCode: authBloc.changeCountryCode,
+            ),
+            SizedBox(
+              width: 7.0,
+            ),
+            Flexible(
+              child: StreamBuilder(
+                stream: authBloc.phone,
+                builder: (context, snapshot) {
+                  return _buildPhoneTextFiled(context, snapshot);
+                },
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -5,6 +5,7 @@ import './src/screens/welcome/welcome_screen.dart';
 import './themes/jeddTheme.dart' show jeddTheme;
 import './src/locale.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import './src/screens/home/home_screen.dart';
 
 // void main() => runApp(MyApp());
 void main() async {
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      locale: Locale('ar', ''),
+      locale: Locale('en', ''),
       localizationsDelegates: [
         const AppLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
@@ -35,9 +36,24 @@ class MyApp extends StatelessWidget {
       ],
       title: 'Flutter Demo',
       theme: jeddTheme,
-      home: WelcomeScreen(),
+      home: StartApp(),
       onGenerateRoute: routes,
       debugShowCheckedModeBanner: true,
+    );
+  }
+}
+
+class StartApp extends StatelessWidget {
+  Future<bool> _isUserHasAcsses() async {
+    await Future.delayed(const Duration(seconds: 2));
+    return Future<bool>.value(true);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // TODO: conditional render
+      body: false ? HomeScreen() : WelcomeScreen(),
     );
   }
 }

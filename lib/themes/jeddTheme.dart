@@ -36,6 +36,7 @@ ThemeData _buildJeddTheme() {
     primaryIconTheme: base.iconTheme.copyWith(
       color: jeddGreenLime,
     ),
+
     // TODO: Decorate the inputs (103)
   );
 }

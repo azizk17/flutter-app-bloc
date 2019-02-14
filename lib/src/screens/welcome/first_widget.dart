@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../locale.dart';
+import 'package:flutter/cupertino.dart';
 
 class FirstWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).accentColor,
+      color: CupertinoColors.activeBlue,
       child: Center(
         child: Text(
           AppLocalizations.of(context).hello,
