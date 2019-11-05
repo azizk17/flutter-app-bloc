@@ -5,9 +5,9 @@ As a flutter app grows rapidly, you will realize that using simple state managem
 ## Note
 On May 7, 2019 Google i/o introduced a Flutter for web. Although Flutter for web still in beta, it looks promising. [Click to read more](https://developers.googleblog.com/2019/05/Flutter-io19.html)
 ## Architecture
-- ###Code sharing: 
+- **Code sharing: 
     This architecture approach might have share more then 70% of code between diffrent platforms (web, mobile). However, abstracting and dependency injection which the way of implementing this architecture might be complex and overwhelmed
-- ###Testing: 
+- **Testing: 
     Testing is easier where UI and business logic are separated which can be tested separately.
 ## Roadmap
   - [x] Models (built value) 
