@@ -1,9 +1,11 @@
+## Note: Provider package introduced a better approach [click here](https://pub.dev/packages/provider)
+
 # Advance Flutter App implementes BLOC
 As a flutter app grows rapidly, you will realize that using simple state management (Statful Widget) is no longer an option. Until this moment state management best practice in Flutter has not exist yet. However, Flutter teams introduced BLOC, Business Logic, which is a state management approach using reactive programing (Streams Architecture).
 ## Note
 On May 7, 2019 Google i/o introduced a Flutter for web. Although Flutter for web still in beta, it looks promising. [Click to read more](https://developers.googleblog.com/2019/05/Flutter-io19.html)
 ## Architecture
-- ###Code shareing: 
+- ###Code sharing: 
     This architecture approach might have share more then 70% of code between diffrent platforms (web, mobile). However, abstracting and dependency injection which the way of implementing this architecture might be complex and overwhelmed
 - ###Testing: 
     Testing is easier where UI and business logic are separated which can be tested separately.
